@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Mis reservas</title>
+  <h2>Reservar cancha</h2>
+<p class="text-muted">Bienvenido, <strong id="userName"></strong></p>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-success">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/reservas.html">Mis reservas</a>
+    <button class="btn btn-light" onclick="logout()">Cerrar sesión</button>
+
+  </div>
+</nav>
+<div class="container mt-4">
+  <h2>Reservar cancha</h2>
+  <form id="reservaForm">
+    <div class="row">
+      <div class="col-md-4">
+        <label>Cancha</label>
+        <select id="field_id" class="form-select" required></select>
+      </div>
+      <div class="col-md-4">
+        <label>Fecha</label>
+        <input type="date" id="date" class="form-control" required/>
+      </div>
+      <div class="col-md-4">
+        <label>Hora inicio</label>
+        <input type="time" id="start_time" class="form-control" required/>
+      </div>
+    </div>
+    <button class="btn btn-success mt-3">Reservar</button>
+  </form>
+
+  <h3 class="mt-5">Mis reservas</h3>
+  <table class="table">
+    <thead>
+      <tr><th>Cancha</th><th>Fecha</th><th>Hora</th><th>Acción</th></tr>
+    </thead>
+    <tbody id="reservasTable"></tbody>
+  </table>
+  <!-- Botón de pago simulado -->
+<button id="pagarNequiBtn" class="btn btn-warning" style="display:none;">
+  📱 Pagar con Nequi (Simulado)
+</button>
+<div id="aviso-cancelacion" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+  ✅ Reserva cancelada exitosamente.
+  <!-- Botón para borrar historial -->
+<button id="btnLimpiarHistorial" class="btn btn-outline-danger mt-3">
+  🗑️ Borrar todo mi historial
+</button>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>  
+</div>
+<script src="/js/reservas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+async function iniciarPago(reservaId, monto) {
+    const res = await fetch("/api/payments/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reserva_id: reservaId, monto: monto })
+    });
+    const data = await res.json();
+    if (data.payment_id) {
+        const btn = document.getElementById("pagarNequiBtn");
+        btn.style.display = "inline-block";
+        btn.onclick = async () => {
+            const confirmRes = await fetch(`/api/payments/confirm/${data.payment_id}`, {
+                method: "POST"
+            });
+            const confirmData = await confirmRes.json();
+            alert("✅ Pago confirmado con Nequi (Simulado)");
+            btn.style.display = "none";
+        };
+    }
+}
+</script>
+
+</body>
+</html>
