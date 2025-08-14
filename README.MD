@@ -82,7 +82,7 @@
 
 ### 🎖 &nbsp;My Badges 
 
-[![An image of @adityakanoi's Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/adityakanoi)](https://holopin.io/@adityakanoi)
+[![An image of Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/)](https://holopin.io/)
 
 
 ### 📜 &nbsp;My Articles
