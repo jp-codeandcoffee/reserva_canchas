@@ -80,10 +80,6 @@
   <img height="180em" src="https://github-readme-streak-stats.herokuapp.com/?user=AdityaKanoi2001&theme=dark&hide_border=true"/>
 </p>
 
-### 🎖 &nbsp;My Badges 
-
-[![An image of Holopin badges, which is a link to view their full Holopin profile](https://holopin.me/)](https://holopin.io/)
-
 
 ### 📜 &nbsp;My Articles
 
